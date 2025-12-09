@@ -3,12 +3,13 @@ import { useState } from "react"
 import logo from "../assets/Logo.png"
 
 const Authentication = () => {
+    localStorage.removeItem("loginUser") //remove the previous login state upon entering this page
     setTimeout(() => {
         const nav = document.getElementById("nav")
         const element = document.getElementById("element")
         nav.style.display = "none";
         element.className = "pt-5 text-center";
-    }, 50)
+    }, 50) //set timeout for smoother logout (to remove nav)
     const [user, getUser] = useState({
         adminNo: "",
         password: ""
@@ -17,8 +18,9 @@ const Authentication = () => {
     const userPageStyle = () => {
         nav.style.display = "inline";
         element.className = "pt-10 text-center";
-    }
+    } //display navigation bar
     return (
+        //login UI
         <div className="loginContainer">
             <img id="loginLogo" src={logo} width={"100px"} height={"100px"}></img>
             <text>Login To</text>
@@ -35,12 +37,15 @@ const Authentication = () => {
             </div>
             <button id="loginBtn" onClick={() => {
                 if (user.adminNo === "" && user.password === "") {
-                    navigate("/inventory")
+                    navigate("/student")
+                    localStorage.setItem("loginUser", "student");
                     userPageStyle();
                 } else {
-                    navigate("/logs")
+                    navigate("/admin")
+                    localStorage.setItem("loginUser", "admin");
                     userPageStyle();
-                }
+                }//login for admin/user upon login
+                //MUST MAKE LOGIC BETTER
             }}>
                 Login
             </button>
