@@ -3,19 +3,15 @@ import { useState } from "react"
 import logo from "../assets/Logo.png"
 
 const Authentication = () => {
-    setTimeout(() => {
-        const nav = document.getElementById("nav")
-        const element = document.getElementById("element")
-        nav.style.display = "none";
-        element.className = "pt-5 text-center";
-    }, 50) //set timeout for smoother logout (to remove nav)
+    const element = document.getElementById("element")
+    element.className = "pt-5 text-center";
+    //set timeout for smoother logout (to remove nav)
     const [user, getUser] = useState({
         adminNo: "",
         password: ""
     });
     const navigate = useNavigate();
     const userPageStyle = () => {
-        nav.style.display = "inline";
         element.className = "pt-10 text-center";
     } //display navigation bar
     return (

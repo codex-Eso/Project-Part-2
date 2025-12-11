@@ -1,8 +1,11 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import NavStudent from '../components/NavStudent'
+import NavAdmin from '../components/NavAdmin'
+import { getRole } from "../util"
 
 function Admin() {
-    const acutalRole = localStorage.getItem("loginRole");
+    const acutalRole = getRole();
     const navigate = useNavigate();
     useEffect(() => {
         if (acutalRole !== "admin") {
@@ -12,6 +15,8 @@ function Admin() {
     }, [])
     return (
         <div>
+            {acutalRole === "student" && <NavStudent />}
+            {acutalRole === "admin" && <NavAdmin />}
             <h1>Admin Page</h1>
         </div>
     )

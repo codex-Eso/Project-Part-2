@@ -8,10 +8,8 @@ import Inventory from './pages/Inventory'
 import Notification from './pages/Notification'
 import Student from './pages/Student'
 import Admin from './pages/Admin'
-import NavStudent from './components/NavStudent'
 import NotFound from './pages/NotFound'
 import './App.css'
-import NavAdmin from './components/NavAdmin'
 
 function App() {
   const [role, getRole] = useState(localStorage.getItem("loginRole"));
@@ -24,12 +22,9 @@ function App() {
       navigate("/");
     }
   }, [navigate])
+  console.log(role)
   return (
     <>
-      <div id='nav'>
-        {role === "student" && <NavStudent />}
-        {role === "admin" && <NavAdmin />}
-      </div>
       <div id='element' className='pt-5 text-center'>
         <Routes id="routes">
           {/*

@@ -8,6 +8,7 @@ const NavAdmin = () => {
         localStorage.removeItem("loginRole");
         navigate("/")
     }
+    console.log("test")
     return (
         <Navbar className='my-nav-bar' variant='dark' expand="lg" fixed="top">
             <Container>
