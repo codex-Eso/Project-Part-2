@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import NavStudent from '../components/NavStudent'
 import NavAdmin from '../components/NavAdmin'
-import { getRole } from "../util"
+import { getRole } from "../checkLogin"
+import { Outlet } from "react-router";
 
 function Admin() {
     const acutalRole = getRole();
@@ -14,10 +15,10 @@ function Admin() {
         }
     }, [])
     return (
-        <div>
+        <div className="pt-10 text-center">
             {acutalRole === "student" && <NavStudent />}
             {acutalRole === "admin" && <NavAdmin />}
-            <h1>Admin Page</h1>
+            <Outlet />
         </div>
     )
 }

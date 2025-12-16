@@ -1,0 +1,58 @@
+{
+    "libraryData": [
+        {
+            "id": "B1",
+            "location": "Level 6, Row 6, Bay 2",
+            "availability": true,
+            "identifier": 6005092138,
+            "copies": 2,
+            "title": "Norse Mythology",
+            "author": "Desmond Lee",
+            "bookImage": "../assets/bookImgs/B1.png",
+            "publisher": "London: Hamlyn",
+            "imgLocation": "../assets/bookLoc/B1.png",
+            "level": 6
+        }
+    ],
+    "users": [
+        {
+            "id": "U1",
+            "name": "Library Staff 1",
+            "username": "AdminUser2025",
+            "password": "Admin_is_user_2025"
+        },
+        {
+            "id": "U2",
+            "name": "Student A",
+            "username": "2402411I",
+            "password": "its_esmond_21"
+        }
+    ],
+    "adminLogs": [],
+    "notification": [],
+    "bookInventory": [
+        {
+            "id": "UB1",
+            "studentId": "U2",
+            "booksIds": [
+                "B1",
+                "B3",
+                "B4",
+                "B6"
+            ],
+            "status": [
+                "Viewed",
+                "Borrowed",
+                "Viewed",
+                "Viewed"
+            ],
+            "dueDate": [
+                "",
+                "2026-02-20T18:00:00Z",
+                "",
+                ""
+            ]
+        }
+    ],
+    "adminBooks": []
+}

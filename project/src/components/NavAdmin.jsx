@@ -1,5 +1,5 @@
 import { Navbar, Nav, Container } from 'react-bootstrap'
-import { Link, useNavigate } from "react-router"
+import { Link, useNavigate } from "react-router-dom"
 import logo from "../assets/Logo.png"
 
 const NavAdmin = () => {
@@ -8,7 +8,6 @@ const NavAdmin = () => {
         localStorage.removeItem("loginRole");
         navigate("/")
     }
-    console.log("test")
     return (
         <Navbar className='my-nav-bar' variant='dark' expand="lg" fixed="top">
             <Container>

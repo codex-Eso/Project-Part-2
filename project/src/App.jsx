@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate } from 'react-router'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 import AddBook from './pages/AddBook'
@@ -9,6 +9,8 @@ import Notification from './pages/Notification'
 import Student from './pages/Student'
 import Admin from './pages/Admin'
 import NotFound from './pages/NotFound'
+import StudentHome from './pages/StudentHome'
+import AdminHome from './pages/AdminHome'
 import './App.css'
 
 function App() {
@@ -22,10 +24,9 @@ function App() {
       navigate("/");
     }
   }, [navigate])
-  console.log(role)
   return (
     <>
-      <div id='element' className='pt-5 text-center'>
+      <div className='pt-5 text-center'>
         <Routes id="routes">
           {/*
           Authentication is the default page
@@ -36,10 +37,12 @@ function App() {
           */}
           <Route path="/" element={<Authentication />} />
           <Route path="/student" element={<Student />}>
+            <Route index element={<StudentHome />} />
             <Route path="inventory" element={<Inventory />} />
             <Route path="notification" element={<Notification />} />
           </Route>
           <Route path="/admin" element={<Admin />}>
+            <Route index element={<AdminHome />} />
             <Route path="logs" element={<AuditLog />} />
             <Route path="addBook" element={<AddBook />} />
           </Route>

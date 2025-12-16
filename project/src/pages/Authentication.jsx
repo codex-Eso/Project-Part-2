@@ -1,19 +1,13 @@
-import { useNavigate } from "react-router"
+import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import logo from "../assets/Logo.png"
 
 const Authentication = () => {
-    const element = document.getElementById("element")
-    element.className = "pt-5 text-center";
-    //set timeout for smoother logout (to remove nav)
     const [user, getUser] = useState({
         adminNo: "",
         password: ""
     });
     const navigate = useNavigate();
-    const userPageStyle = () => {
-        element.className = "pt-10 text-center";
-    } //display navigation bar
     return (
         //login UI
         <div className="loginContainer">
@@ -34,11 +28,9 @@ const Authentication = () => {
                 if (user.adminNo === "" && user.password === "") {
                     navigate("/student")
                     localStorage.setItem("loginRole", "student");
-                    userPageStyle();
                 } else {
                     navigate("/admin")
                     localStorage.setItem("loginRole", "admin");
-                    userPageStyle();
                 }//login for admin/user upon login
                 //MUST MAKE LOGIC BETTER
             }}>

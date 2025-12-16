@@ -19,11 +19,15 @@ body {
   place-items: center;
 }
 
+text {
+  font-family: 'Roboto', sans-serif;
+}
+
 /*---NAVIGATION CSS---*/
 
 /*Spacing for elements below nav*/
 .pt-10 {
-  padding-top: 7rem;
+  padding-top: 5rem;
 }
 
 /*Some nav bar stylings*/
@@ -103,4 +107,30 @@ body {
   border: none;
   outline: none;
   border-radius: 10px;
+}
+
+/*---STUDENT HOMEPAGE---*/
+
+#searchBar {
+  margin-top: 0.5rem;
+  width: 30rem;
+  padding: 5px 0;
+  background-color: white;
+  border: 3px solid #d2d2d2;
+  display: flex;
+  align-items: center;
+  border-radius: 30px;
+}
+
+#searchBar input {
+  font-size: 20px;
+  margin-left: 1rem;
+  font-weight: 500;
+  outline: none;
+  border: none;
+  width: 50%;
+}
+
+#searchBar img {
+  margin-left: 3rem;
 }
