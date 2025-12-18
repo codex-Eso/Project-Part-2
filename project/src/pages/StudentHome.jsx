@@ -31,7 +31,7 @@ const StudentHome = () => {
         }
         getViewedBooks();
         getAllBooks();
-    }, []);
+    });
     useEffect(() => {
         if (!books.booksIds) return;
         const bookCount = books.booksIds.length;
@@ -43,7 +43,6 @@ const StudentHome = () => {
     var booksDisplay = 0;
     const viewedBooks = books.booksIds?.map((id, i) => {
         if (booksDisplay === 3) return null;
-        if (books.status[i] !== "Viewed") return null;
         const matchedBooks = allBooks.find(book => book.id === id);
         if (!matchedBooks) return null;
         booksDisplay++;

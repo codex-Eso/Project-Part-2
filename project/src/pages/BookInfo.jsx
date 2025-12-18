@@ -32,15 +32,32 @@ const BookInfo = () => {
                 let data = await res.json();
                 data = data.filter(u => u.studentId === localStorage.getItem("userId"));
                 const getBook = data[0].booksIds.indexOf(id);
-                setBookState(data[0].status[getBook]);
+                if (getBook !== -1) {
+                    data[0].booksIds.splice(getBook, 1);
+                    data[0].booksIds.unshift(id);
+                    var getStatus = data[0].status.splice(getBook, 1);
+                    data[0].status.unshift(getStatus[0]);
+                    var getDueDate = data[0].dueDate.splice(getBook, 1);
+                    data[0].dueDate.unshift(getDueDate[0]);
+                } else {
+                    data[0].booksIds.unshift(id);
+                    data[0].status.unshift("Viewed");
+                    data[0].dueDate.unshift("");
+                }
+                setBookState(data[0].status[0]);
+                await fetch(`http://localhost:5050/bookInventory/${data[0].id}`, {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data[0])
+                });
             } catch (e) {
                 if (e === "Failed to get books! Try again later!") alert(e);
             }
         }
         getUserBooks();
-    })
+    }, [id])
     const action = (getAction) => {
-        console.log(bookState)
+        //originally, I wanted to make request so that it works even if book is unavailable/copies = 0, but I don't want too make it too complex for my sake now...
         if (!book.availability) {
             alert("Cannot proceed! Book unavailable. Try again soon!");
             return;
@@ -54,11 +71,56 @@ const BookInfo = () => {
                 //prompt to enter ISBN
                 const checkISBN = prompt("To confirm borrowing, please enter the book's ISBN:\n");
                 if (checkISBN == book.identifier) {
+                    const bookBorrowed = async () => {
+                        const tdyDate = new Date();
+                        let dueDate = new Date(tdyDate);
+                        dueDate.setDate(tdyDate.getDate() + 28);
+                        dueDate = dueDate.toISOString();
+                        const res = await fetch(`http://localhost:5050/bookInventory`);
+                        if (!res.ok) throw new Error("Failed to get books! Try again later!");
+                        let userBook = await res.json();
+                        userBook = userBook.filter(u => u.studentId === localStorage.getItem("userId"));
+                        let getId = userBook[0].booksIds.indexOf(id);
+                        userBook[0].status[getId] = "Borrowed";
+                        userBook[0].dueDate[getId] = dueDate;
+                        userBook[0].borrowed += 1;
+                        await fetch(`http://localhost:5050/bookInventory/${userBook[0].id}`, {
+                            method: "PATCH",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(userBook[0])
+                        });
+                        const updatedBook = { ...book };
+                        updatedBook.copies -= 1;
+                        if (updatedBook.copies === 0) updatedBook.availability = false;
+                        await fetch(`http://localhost:5050/libraryData/${id}`, {
+                            method: "PATCH",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(updatedBook)
+                        });
+                        actualBook(updatedBook);
+                    }
+                    bookBorrowed();
                     alert("Borrowed successfully!");
                 } else {
                     alert("Cannot proceed! Invalid ISBN!");
                 }
             } else if (getAction === "Request") {
+                const bookRequested = async () => {
+                    const res = await fetch(`http://localhost:5050/bookInventory`);
+                    if (!res.ok) throw new Error("Failed to get books! Try again later!");
+                    let userBook = await res.json();
+                    userBook = userBook.filter(u => u.studentId === localStorage.getItem("userId"));
+                    let getId = userBook[0].booksIds.indexOf(id);
+                    userBook[0].status[getId] = "Requested";
+                    userBook[0].requested += 1;
+                    await fetch(`http://localhost:5050/bookInventory/${userBook[0].id}`, {
+                        method: "PATCH",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(userBook[0])
+                    });
+                    setBookState("Requested");
+                }
+                bookRequested();
                 alert("Requested successfully!");
             }
         } else {

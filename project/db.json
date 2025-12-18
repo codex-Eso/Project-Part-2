@@ -1,148 +1,171 @@
 {
-    "libraryData": [
-        {
-            "id": "B1",
-            "location": "Level 6, Row 6, Bay 2",
-            "availability": true,
-            "identifier": 6005092138,
-            "copies": 2,
-            "title": "Norse Mythology",
-            "author": "Desmond Lee",
-            "bookImage": "/bookImgs/B1.png",
-            "publisher": "London: Hamlyn",
-            "imgLocation": "/bookLoc/B1.png",
-            "level": 6
-        },
-        {
-            "id": "B2",
-            "location": "Closed Stacks",
-            "availability": false,
-            "identifier": 9115092636,
-            "copies": 0,
-            "title": "Studies",
-            "author": "Poppy Pop",
-            "bookImage": "/bookImgs/B2.png",
-            "publisher": "America: Brooklyn",
-            "level": 0
-        },
-        {
-            "id": "B3",
-            "location": "Level 7, Row 12, Bay 3",
-            "availability": false,
-            "identifier": 6667156234,
-            "copies": 0,
-            "title": "History of Singapore",
-            "author": "Jospeh Schooling",
-            "bookImage": "/bookImgs/B3.png",
-            "publisher": "Singapore: Singapore",
-            "imgLocation": "/bookLoc/B3.png",
-            "level": 7
-        },
-        {
-            "id": "B4",
-            "location": "Closed Stacks",
-            "availability": true,
-            "identifier": 7437004567,
-            "copies": 3,
-            "title": "Book of Nothing",
-            "author": "Unknown Tan",
-            "bookImage": "/bookImgs/B4.png",
-            "publisher": "Australia: Australia",
-            "level": 0
-        },
-        {
-            "id": "B5",
-            "location": "Level 6, Row 9, Bay 3",
-            "availability": true,
-            "identifier": 6945606555,
-            "copies": 2,
-            "title": "Gaming History for Dummies",
-            "author": "Gabriel Tan",
-            "bookImage": "/bookImgs/B5.png",
-            "publisher": "China: Shanghai",
-            "imgLocation": "/bookLoc/B5.png",
-            "level": 6
-        },
-        {
-            "id": "B6",
-            "location": "Level 8, Row 13, Bay 1",
-            "availability": true,
-            "identifier": 4561234707,
-            "copies": 1,
-            "title": "Biography",
-            "author": "Professor Low",
-            "bookImage": "/bookImgs/B6.png",
-            "publisher": "Singapore: Singapore",
-            "imgLocation": "/bookLoc/B6.png",
-            "level": 8
-        }
-    ],
-    "users": [
-        {
-            "id": "U1",
-            "name": "Library Staff 1",
-            "username": "AdminUser2025",
-            "password": "Admin_is_user_2025"
-        },
-        {
-            "id": "U2",
-            "name": "Student A",
-            "username": "2402411I",
-            "password": "its_esmond_21"
-        },
-        {
-            "id": "U3",
-            "name": "Student B",
-            "username": "2300161E",
-            "password": "tester_1234"
-        }
-    ],
-    "adminLogs": [],
-    "notification": [],
-    "bookInventory": [
-        {
-            "id": "UB1",
-            "studentId": "U2",
-            "booksIds": [
-                "B1",
-                "B3",
-                "B4",
-                "B6"
-            ],
-            "status": [
-                "Viewed",
-                "Borrowed",
-                "Viewed",
-                "Viewed"
-            ],
-            "dueDate": [
-                "",
-                "2026-02-20T18:00:00Z",
-                "",
-                ""
-            ],
-            "borrowed": 1,
-            "requested": 0
-        },
-        {
-            "id": "UB2",
-            "studentId": "U3",
-            "booksIds": [],
-            "status": [],
-            "dueDate": [],
-            "borrowed": 0,
-            "requested": 0
-        }
-    ],
-    "adminBooks": [
-        {
-            "bookIds": [
-                "B6",
-                "B4",
-                "B1",
-                "B2",
-                "B3"
-            ]
-        }
-    ]
+  "libraryData": [
+    {
+      "id": "B1",
+      "location": "Level 6, Row 6, Bay 2",
+      "availability": false,
+      "identifier": 6005092138,
+      "copies": 0,
+      "title": "Norse Mythology",
+      "author": "Desmond Lee",
+      "bookImage": "/bookImgs/B1.png",
+      "publisher": "London: Hamlyn",
+      "imgLocation": "/bookLoc/B1.png",
+      "level": 6
+    },
+    {
+      "id": "B2",
+      "location": "Closed Stacks",
+      "availability": false,
+      "identifier": 9115092636,
+      "copies": 0,
+      "title": "Studies",
+      "author": "Poppy Pop",
+      "bookImage": "/bookImgs/B2.png",
+      "publisher": "America: Brooklyn",
+      "level": 0
+    },
+    {
+      "id": "B3",
+      "location": "Level 7, Row 12, Bay 3",
+      "availability": false,
+      "identifier": 6667156234,
+      "copies": 0,
+      "title": "History of Singapore",
+      "author": "Jospeh Schooling",
+      "bookImage": "/bookImgs/B3.png",
+      "publisher": "Singapore: Singapore",
+      "imgLocation": "/bookLoc/B3.png",
+      "level": 7
+    },
+    {
+      "id": "B4",
+      "location": "Closed Stacks",
+      "availability": true,
+      "identifier": 7437004567,
+      "copies": 3,
+      "title": "Book of Nothing",
+      "author": "Unknown Tan",
+      "bookImage": "/bookImgs/B4.png",
+      "publisher": "Australia: Australia",
+      "level": 0
+    },
+    {
+      "id": "B5",
+      "location": "Level 6, Row 9, Bay 3",
+      "availability": true,
+      "identifier": 6945606555,
+      "copies": 2,
+      "title": "Gaming History for Dummies",
+      "author": "Gabriel Tan",
+      "bookImage": "/bookImgs/B5.png",
+      "publisher": "China: Shanghai",
+      "imgLocation": "/bookLoc/B5.png",
+      "level": 6
+    },
+    {
+      "id": "B6",
+      "location": "Level 8, Row 13, Bay 1",
+      "availability": false,
+      "identifier": 4561234707,
+      "copies": 0,
+      "title": "Biography",
+      "author": "Professor Low",
+      "bookImage": "/bookImgs/B6.png",
+      "publisher": "Singapore: Singapore",
+      "imgLocation": "/bookLoc/B6.png",
+      "level": 8
+    }
+  ],
+  "users": [
+    {
+      "id": "U1",
+      "name": "Library Staff 1",
+      "username": "AdminUser2025",
+      "password": "Admin_is_user_2025"
+    },
+    {
+      "id": "U2",
+      "name": "Student A",
+      "username": "2402411I",
+      "password": "its_esmond_21"
+    },
+    {
+      "id": "U3",
+      "name": "Student B",
+      "username": "2300161E",
+      "password": "tester_1234"
+    }
+  ],
+  "adminLogs": [],
+  "notification": [],
+  "bookInventory": [
+    {
+      "id": "UB1",
+      "studentId": "U2",
+      "booksIds": [
+        "B5",
+        "B1",
+        "B6",
+        "B4",
+        "B3"
+      ],
+      "status": [
+        "Requested",
+        "Borrowed",
+        "Borrowed",
+        "Borrowed",
+        "Viewed"
+      ],
+      "dueDate": [
+        "",
+        "",
+        "2026-01-15T15:09:03.210Z",
+        "2026-01-15T13:43:36.523Z",
+        "",
+        "2026-01-15T15:04:09.647Z",
+        "2026-02-20T18:00:00Z",
+        ""
+      ],
+      "borrowed": 4,
+      "requested": 6
+    },
+    {
+      "id": "UB2",
+      "studentId": "U3",
+      "booksIds": [
+        "B1",
+        "B3",
+        "B4",
+        "B6"
+      ],
+      "status": [
+        "Viewed",
+        "Viewed",
+        "Requested",
+        "Viewed"
+      ],
+      "dueDate": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "borrowed": 0,
+      "requested": 2
+    }
+  ],
+  "adminBooks": [
+    {
+      "bookIds": [
+        "B6",
+        "B4",
+        "B1",
+        "B2",
+        "B3"
+      ],
+      "id": "d376"
+    }
+  ]
 }
