@@ -19,7 +19,7 @@ const BookInfo = () => {
                 let data = await res.json();
                 actualBook(data);
             } catch (e) {
-                if (e === "Failed to get book! Try again later!") alert(e);
+                navigate("error");
             }
         }
         getBookInfo()
@@ -51,7 +51,7 @@ const BookInfo = () => {
                     body: JSON.stringify(data[0])
                 });
             } catch (e) {
-                if (e === "Failed to get books! Try again later!") alert(e);
+                alert(e);
             }
         }
         getUserBooks();

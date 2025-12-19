@@ -202,7 +202,6 @@ text {
   right: 0;
   margin-top: 2%;
   margin-right: 2%;
-  border: 2.5px solid black;
   border-radius: 3px;
   cursor: pointer;
 }
@@ -226,4 +225,27 @@ text {
 
 #filterSearch {
   outline: none;
+}
+
+.resultsContainer {
+  padding: 15px 20px;
+  border: 3px solid black;
+  max-width: 320px;
+  background: white;
+  border-radius: 20px;
+}
+
+.resultsImg {
+  max-height: 150px;
+  border-radius: 10px;
+}
+
+.bookResults {
+  gap: 5vw;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.noBooks {
+  margin: auto;
 }

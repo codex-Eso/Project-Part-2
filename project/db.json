@@ -104,6 +104,8 @@
       "id": "UB1",
       "studentId": "U2",
       "booksIds": [
+        "bb1",
+        "B2",
         "B1",
         "B6",
         "B5",
@@ -111,6 +113,8 @@
         "B3"
       ],
       "status": [
+        "Viewed",
+        "Viewed",
         "Borrowed",
         "Borrowed",
         "Requested",
@@ -118,6 +122,8 @@
         "Viewed"
       ],
       "dueDate": [
+        "",
+        "",
         "",
         "2026-01-15T15:09:03.210Z",
         "",

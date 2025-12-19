@@ -16,7 +16,8 @@ const Authentication = () => {
                 const data = await res.json();
                 setUser(data);
             } catch (e) {
-                if (e === "Failed to get users! Try again later!") alert(e);
+                if (e.startsWith("TypeError")) return;
+                alert(e);
             }
         }
         checkLogin();
