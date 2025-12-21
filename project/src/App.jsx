@@ -13,6 +13,7 @@ import StudentHome from './pages/StudentHome'
 import AdminHome from './pages/AdminHome'
 import BookInfo from './pages/BookInfo'
 import './App.css'
+import EditBook from './pages/EditBook'
 
 function App() {
   const [role, getRole] = useState(localStorage.getItem("loginRole"));
@@ -48,6 +49,7 @@ function App() {
             <Route path="logs" element={<AuditLog />} />
             <Route path="addBook" element={<AddBook />} />
             <Route path="book/:id" element={<BookInfo />} />
+            <Route path='editBook/:id' element={<EditBook />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -3,9 +3,9 @@
     {
       "id": "B1",
       "location": "Level 6, Row 6, Bay 2",
-      "availability": false,
+      "availability": true,
       "identifier": 6005092138,
-      "copies": 0,
+      "copies": 2,
       "title": "Norse Mythology",
       "author": "Desmond Lee",
       "bookImage": "/bookImgs/B1.png",
@@ -66,28 +66,15 @@
     {
       "id": "B6",
       "location": "Level 8, Row 13, Bay 1",
-      "availability": false,
+      "availability": true,
       "identifier": 4561234707,
-      "copies": 0,
+      "copies": 1,
       "title": "Biography",
       "author": "Professor Low",
       "bookImage": "/bookImgs/B6.png",
       "publisher": "Singapore: Singapore",
       "imgLocation": "/bookLoc/B6.png",
       "level": 8
-    },
-    {
-      "id": "B7",
-      "location": "Level 7, Row 24, Bay 3",
-      "availability": true,
-      "identifier": 6967224891,
-      "copies": 3,
-      "title": "Tides",
-      "author": "Author Name",
-      "bookImage": "blob:http://localhost:5173/fd2db0a4-2300-4ede-af34-63962b1f3101",
-      "publisher": "New York: USA",
-      "imgLocation": "blob:http://localhost:5173/53503f16-b396-4b37-ab9f-2d54f72fa4f9",
-      "level": 7
     }
   ],
   "users": [
@@ -119,7 +106,6 @@
       "booksIds": [
         "B4",
         "B5",
-        "B7",
         "B1",
         "B2",
         "B3"
@@ -127,7 +113,6 @@
       "status": [
         "Viewed",
         "Borrowed",
-        "Requested",
         "Viewed",
         "Viewed",
         "Requested"
@@ -141,7 +126,7 @@
         ""
       ],
       "borrowed": 1,
-      "requested": 2
+      "requested": 1
     },
     {
       "id": "UB2",
@@ -154,7 +139,7 @@
         "B6"
       ],
       "status": [
-        "Viewed",
+        "Requested",
         "Viewed",
         "Requested",
         "Viewed",
@@ -176,12 +161,12 @@
     {
       "id": "AB1",
       "bookIds": [
-        "B7",
-        "B3",
+        "B6",
         "B5",
         "B1",
+        "B2",
         "B4",
-        "B6"
+        "B3"
       ]
     }
   ]

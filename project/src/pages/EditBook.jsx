@@ -1,10 +1,28 @@
-import { useEffect, useState } from "react"
-import { overflow } from "../overflow"
+import { useParams } from "react-router"
 import { useNavigate } from "react-router-dom";
+import { overflow } from "../overflow"
+import { useEffect, useState } from "react";
 import UploadImage from "../assets/UploadImage.png"
-const AddBook = () => {
+
+const EditBook = () => {
+    const { id } = useParams();
     const navigate = useNavigate();
+    const [book, bookInfo] = useState({});
     useEffect(() => { overflow(true) }, []);
+    useEffect(() => { }, [id]);
+    useEffect(() => {
+        const getBookInfo = async () => {
+            try {
+                const res = await fetch(`http://localhost:5050/libraryData/${id}`);
+                if (!res.ok) throw new Error("Failed to get book! Try again later!");
+                let data = await res.json();
+                bookInfo(data);
+            } catch (e) {
+                navigate("error");
+            }
+        }
+        getBookInfo()
+    }, [])
     const [bookImg, setBookImg] = useState("");
     const [bookLocImg, setBookLocImg] = useState("");
     const upload = (fromImg) => {
@@ -16,13 +34,13 @@ const AddBook = () => {
             } else if (fromImg === "bookLoc") {
                 setBookLocImg(URL.createObjectURL(file))
             }
+            document.querySelectorAll(".images img").src = UploadImage
         } else {
             alert("Please upload an image!");
             document.getElementById(fromImg).value = "";
         }
     }
-    const addBook = async () => {
-        //basic input validation, we admin the admin is smart and there should not be any case-sensitive problems/everything entered should be roughly valid)
+    const editBook = async () => {
         const title = document.getElementById("title").value
         const author = document.getElementById("author").value
         const bookImage = document.getElementById("bookImg").value
@@ -33,10 +51,7 @@ const AddBook = () => {
         const location = document.getElementById("location").value
         const bookLoc = document.getElementById("bookLoc").value
         const level = Number(document.getElementById("level").value)
-        if (!title.trim() || !author.trim() || !publisher.trim() || !location.trim() || !bookImage || !isbn || copies === "" || availability === "" || level === "") {
-            alert("Cannot proceed! There are empty input values!");
-            return;
-        } else if (!bookLoc && location !== "Closed Stacks") {
+        if (!title.trim() || !author.trim() || !publisher.trim() || !location.trim() || !isbn || copies === "" || availability === "" || level === "") {
             alert("Cannot proceed! There are empty input values!");
             return;
         } else if (copies < 0 || isbn < 0) {
@@ -52,17 +67,6 @@ const AddBook = () => {
             alert("Cannot proceed! Location & Level must match appropriately!");
             return;
         }
-        let id;
-        try {
-            const res = await fetch(`http://localhost:5050/libraryData`);
-            if (!res.ok) throw new Error("Failed to get books! Try again later!");
-            let data = await res.json();
-            const bookIds = data.map(book => book.id);
-            id = `B${bookIds.length + 1}`
-        } catch (e) {
-            alert(e);
-            return;
-        }
         let jsonData = new Object();
         jsonData.id = id;
         jsonData.location = location;
@@ -71,17 +75,21 @@ const AddBook = () => {
         jsonData.copies = copies;
         jsonData.title = title;
         jsonData.author = author;
-        jsonData.bookImage = bookImg;
+        if (bookImage) {
+            jsonData.bookImage = bookImg;
+        }
         jsonData.publisher = publisher;
-        jsonData.imgLocation = bookLocImg;
+        if (bookLoc) {
+            jsonData.imgLocation = bookLocImg;
+        }
         jsonData.level = level;
         try {
-            await fetch(`http://localhost:5050/libraryData`, {
-                method: "POST",
+            await fetch(`http://localhost:5050/libraryData/${id}`, {
+                method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(jsonData)
             });
-            alert("Book added!");
+            alert("Book edited!");
             navigate("/admin/logs");
             //Heavy note: HARD RELOADING (CTRL + SHIFT + R) MAKES THE IMAGE NO LONGER APPEAR
         } catch (e) {
@@ -91,16 +99,16 @@ const AddBook = () => {
     }
     return (
         <div className="my-1">
-            <h4>Add New Book</h4>
+            <h4>Edit Book</h4>
             <div className="input">
                 <text>Title:</text>
                 <br></br>
-                <input id="title" type="text" placeholder="Book Name..."></input>
+                <input id="title" type="text" placeholder="Book Name..." defaultValue={book.title}></input>
             </div>
             <div className="input">
                 <text>Author:</text>
                 <br></br>
-                <input id="author" type="text" placeholder="Author..."></input>
+                <input id="author" type="text" placeholder="Author..." defaultValue={book.author}></input>
             </div>
             <div className="input">
                 <text>Book Image:</text>
@@ -108,48 +116,52 @@ const AddBook = () => {
                 <div className="images d-flex flex-column justify-content-center align-items-center">
                     <input onChange={() => { upload("bookImg") }} id="bookImg" type="file" hidden></input>
                     <label className="d-flex flex-column justify-content-center align-items-center" htmlFor="bookImg" type="button">
-                        <img src={UploadImage} width={50} />
-                        <text className="ms-1" id="bookImgImg">Upload Image</text>
+                        <img src={book.bookImage || UploadImage} width={50} />
+                        <text className="ms-1" id="bookImgImg">Upload New Image</text>
                     </label>
                 </div>
             </div>
             <div className="input">
                 <text>Publisher:</text>
                 <br></br>
-                <input id="publisher" type="text" placeholder="Publisher..."></input>
+                <input id="publisher" type="text" placeholder="Publisher..." defaultValue={book.publisher}></input>
             </div>
             <div className="input">
                 <text>Identifier (ISBN):</text>
                 <br></br>
-                <input id="identifier" type="number" placeholder="ISBN..."></input>
+                <input id="identifier" type="number" placeholder="ISBN..." defaultValue={book.identifier}></input>
             </div>
             <div className="input">
                 <text>Available?</text>
                 <br></br>
-                <select id="availability">
-                    <option value={true}>Yes</option>
-                    <option value={false}>No</option>
-                </select>
+                {book.availability !== undefined && (
+                    <select id="availability" defaultValue={book.availability ? "true" : "false"}>
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+                )}
             </div>
             <div className="input">
                 <text>Copies:</text>
                 <br></br>
-                <input id="copies" type="number" placeholder="Copies..."></input>
+                <input id="copies" type="number" placeholder="Copies..." defaultValue={book.copies}></input>
             </div>
             <div className="input">
                 <text>Level</text>
                 <br></br>
-                <select id="level">
-                    <option value={0}>None (Closed Stacks)</option>
-                    <option value={6}>Level 6</option>
-                    <option value={7}>Level 7</option>
-                    <option value={8}>Level 8</option>
-                </select>
+                {book.level !== undefined && (
+                    <select id="level" defaultValue={String(book.level)}>
+                        <option value="0">None (Closed Stacks)</option>
+                        <option value="6">Level 6</option>
+                        <option value="7">Level 7</option>
+                        <option value="8">Level 8</option>
+                    </select>
+                )}
             </div>
             <div className="input">
                 <text>Location:</text>
                 <br></br>
-                <input id="location" type="text" placeholder="Location..."></input>
+                <input id="location" type="text" placeholder="Location..." defaultValue={book.location}></input>
             </div>
             <div className="input">
                 <text>Book Location:</text>
@@ -157,16 +169,20 @@ const AddBook = () => {
                 <div className="images d-flex flex-column justify-content-center align-items-center">
                     <input onChange={() => { upload("bookLoc") }} id="bookLoc" type="file" hidden></input>
                     <label className="d-flex flex-column justify-content-center align-items-center" htmlFor="bookLoc" type="button">
-                        <img src={UploadImage} width={50} />
-                        <text className="ms-1" id="bookLocImg">Upload Image</text>
+                        <img src={book.imgLocation || UploadImage} width={50} />
+                        <text className="ms-1" id="bookLocImg">Upload New Image</text>
                     </label>
                 </div>
             </div>
-            <button id="addBtn" onClick={addBook}>
-                Add Book
-            </button>
+            <div className="d-flex flex-column justify-content-center align-items-center">
+                <button id="addBtn" onClick={editBook}>
+                    Edit Book
+                </button>
+                <text className="mt-2 mb-1" style={{ fontWeight: "500", textDecoration: "underline", fontSize: 18, cursor: "pointer" }} onClick={() => navigate(-1)}>Back</text>
+            </div>
+
         </div>
     )
 }
 
-export default AddBook
+export default EditBook

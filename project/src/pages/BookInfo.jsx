@@ -166,7 +166,27 @@ const BookInfo = () => {
                 }
             }
         } else if (getRole() === "admin") {
-
+            if (getAction === "Edit") {
+                navigate(`/admin/editBook/${id}`)
+            } else if (getAction === "Delete") {
+                let confirmDeletion = prompt(`Confirm Deletion?\nEnter "Yes" to continue:`)
+                if (confirmDeletion.toLowerCase() === "yes") {
+                    const deletion = async () => {
+                        try {
+                            await fetch(`http://localhost:5050/libraryData/${id}`, {
+                                method: "DELETE"
+                            })
+                            alert("Book deleted!")
+                            navigate(-1);
+                        } catch (e) {
+                            alert(e);
+                        }
+                    }
+                    deletion();
+                } else {
+                    alert("Deletion cancelled!")
+                }
+            }
         }
     }
     return (
