@@ -250,6 +250,18 @@ select {
   margin: auto;
 }
 
+/*---Inventory---*/
+
+.bookInventory {
+  gap: 4vw;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.Stacks label {
+  cursor: pointer;
+}
+
 /*---ADMIN STUFF---*/
 /*---Add Books---*/
 

@@ -95,6 +95,12 @@
       "name": "Student B",
       "username": "2300161E",
       "password": "tester_1234"
+    },
+    {
+      "id": "U4",
+      "name": "Student C",
+      "username": "Test",
+      "password": "test"
     }
   ],
   "adminLogs": [],
@@ -104,29 +110,29 @@
       "id": "UB1",
       "studentId": "U2",
       "booksIds": [
-        "B4",
         "B5",
-        "B1",
         "B2",
-        "B3"
+        "B3",
+        "B4",
+        "B1"
       ],
       "status": [
-        "Viewed",
         "Borrowed",
+        "Requested",
+        "Requested",
         "Viewed",
-        "Viewed",
-        "Requested"
+        "Viewed"
       ],
       "dueDate": [
-        "",
         "2026-01-18T14:20:01.763Z",
+        "",
         "",
         "",
         "",
         ""
       ],
       "borrowed": 1,
-      "requested": 1
+      "requested": 2
     },
     {
       "id": "UB2",
@@ -152,6 +158,36 @@
         "",
         "",
         ""
+      ],
+      "borrowed": 0,
+      "requested": 2
+    },
+    {
+      "id": "UB3",
+      "studentId": "U4",
+      "booksIds": [
+        "B4",
+        "B6",
+        "B2",
+        "B1",
+        "B3",
+        "B5"
+      ],
+      "status": [
+        "Cancelled",
+        "Returned",
+        "Requested",
+        "Overdue",
+        "Borrowed",
+        "Overdue"
+      ],
+      "dueDate": [
+        "",
+        "",
+        "",
+        "2026-01-18T14:20:01.763Z",
+        "2026-01-18T14:20:01.763Z",
+        "2026-01-18T14:20:01.763Z"
       ],
       "borrowed": 0,
       "requested": 2
