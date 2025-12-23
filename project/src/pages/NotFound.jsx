@@ -1,15 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { overflow } from "../overflow"
+import Bad from "../assets/Bad.png"
 
 const NotFound = () => {
     const navigate = useNavigate();
-    //edit further later
     useEffect(() => { overflow(false) }, []);
     return (
-        <div>
-            <h1>Page Not Found</h1>
-            <button onClick={() => {
+        <div className="mt-5 d-flex flex-column justify-content-center align-items-center">
+            <h3 className="mb-3">Page Not Found</h3>
+            <img src={Bad} width={200} />
+            <br />
+            <button id="home" onClick={() => {
                 if (localStorage.getItem("loginRole") === "student") {
                     navigate("/student")
                 } else if (localStorage.getItem("loginRole") === "admin") {

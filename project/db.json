@@ -110,22 +110,22 @@
       "id": "UB1",
       "studentId": "U2",
       "booksIds": [
+        "B3",
         "B5",
         "B2",
-        "B3",
         "B4",
         "B1"
       ],
       "status": [
-        "Borrowed",
         "Requested",
+        "Borrowed",
         "Requested",
         "Viewed",
         "Viewed"
       ],
       "dueDate": [
-        "2026-01-18T14:20:01.763Z",
         "",
+        "2026-01-18T14:20:01.763Z",
         "",
         "",
         "",
@@ -166,43 +166,28 @@
       "id": "UB3",
       "studentId": "U4",
       "booksIds": [
-        "B4",
-        "B6",
-        "B2",
-        "B1",
-        "B3",
-        "B5"
+        "B"
       ],
       "status": [
-        "Cancelled",
-        "Returned",
-        "Requested",
-        "Overdue",
-        "Borrowed",
-        "Overdue"
+        "Viewed"
       ],
       "dueDate": [
-        "",
-        "",
-        "",
-        "2026-01-18T14:20:01.763Z",
-        "2026-01-18T14:20:01.763Z",
-        "2026-01-18T14:20:01.763Z"
+        ""
       ],
       "borrowed": 0,
-      "requested": 2
+      "requested": 0
     }
   ],
   "adminBooks": [
     {
       "id": "AB1",
       "bookIds": [
+        "B3",
         "B6",
         "B5",
         "B1",
         "B2",
-        "B4",
-        "B3"
+        "B4"
       ]
     }
   ]

@@ -3,6 +3,7 @@ import Stack from "react-bootstrap/Stack"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { overflow } from "../overflow";
+import NoBooks from "../components/NoBooks";
 const AdminHome = () => {
     const [books, setBooks] = useState({})
     const [allBooks, getBooks] = useState([])
@@ -106,7 +107,7 @@ const AdminHome = () => {
                         <Stack className="viewBooks" direction="horizontal">
                             {!viewedBooks && <div className="d-flex justify-content-center align-items-center w-100 mt-3 gap-3" direction="horizontal"><div className="spinner-grow"></div><div className="spinner-grow"></div><div className="spinner-grow"></div></div>}
                             {viewedBooks}
-                        </Stack></> : <>Oops no books :((</> //editing this later
+                        </Stack></> : <><NoBooks /></>
                 }</> : <><div className="d-flex justify-content-start align-items-center">
                     <h3>Search Results:</h3><button className="border-0 ms-auto d-flex align-items-center" id="filterSearch" data-bs-toggle="dropdown"><h3>Filter By:</h3>
                     </button>
@@ -134,7 +135,7 @@ const AdminHome = () => {
                                 </div>
                             ))}
                         </div>
-                    ) : <text className="d-flex flex-column justify-content-center align-items-center">Oops no books :((</text> /*editing this later*/}
+                    ) : <NoBooks />}
             </>}
         </Stack >
     )

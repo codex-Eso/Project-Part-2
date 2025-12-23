@@ -122,6 +122,18 @@ select {
   border-radius: 10px;
 }
 
+/*---NOT FOUND---*/
+#home {
+  background-color: #E53935;
+  border: none;
+  color: white;
+  font-weight: 500;
+  font-size: large;
+  padding: 6px 20px;
+  border-radius: 20px;
+  outline: none;
+}
+
 /*---STUDENT STUFF---*/
 /*---Search Bar---*/
 

@@ -2,6 +2,7 @@ import { overflow } from "../overflow"
 import { useEffect, useState } from "react";
 import Stack from "react-bootstrap/Stack"
 import { useNavigate } from "react-router-dom";
+import NoBooks from "../components/NoBooks";
 /*
 All books (recently viewed)
 Borrowed
@@ -123,7 +124,7 @@ const Inventory = () => {
             </div>
             <div className="bookInventory ms-5 my-3">
                 {displayBooks}
-                {(!displayBooks || displayBooks.length === 0) && (<text>Oops No Books :(</text>)}
+                {(!displayBooks || displayBooks.length === 0) && (<div style={{ marginLeft: "25rem" }}><NoBooks /></div>)}
             </div>
         </Stack>
     )
