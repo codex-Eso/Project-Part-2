@@ -127,6 +127,18 @@ const BookInfo = () => {
                                 body: JSON.stringify(updatedBook)
                             });
                             actualBook(updatedBook);
+                            let jsonData = new Object();
+                            jsonData.studentId = localStorage.getItem("userId");
+                            jsonData.message = `Dear Student, the library book, ${book.title}, has been successfully borrowed! Make sure to return the book back to the library after 4 weeks!`
+                            let getDate = new Date();
+                            jsonData.messageTime = getDate.toISOString();
+                            jsonData.bookId = id;
+                            await fetch(`http://localhost:5050/notification`, {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify(jsonData)
+                            });
+                            setBookState("Borrowed");
                         }
                         bookBorrowed();
                         alert("Borrowed successfully!");
@@ -150,6 +162,17 @@ const BookInfo = () => {
                             method: "PATCH",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify(userBook[0])
+                        });
+                        let jsonData = new Object();
+                        jsonData.studentId = localStorage.getItem("userId");
+                        jsonData.message = `Dear Student, the library book, ${book.title}, has been successfully requested! Waiting might take a longer than a week if all available copies are taken.`
+                        let getDate = new Date();
+                        jsonData.messageTime = getDate.toISOString();
+                        jsonData.bookId = id;
+                        await fetch(`http://localhost:5050/notification`, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(jsonData)
                         });
                         setBookState("Requested");
                     }

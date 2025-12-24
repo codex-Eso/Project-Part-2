@@ -274,6 +274,46 @@ select {
   cursor: pointer;
 }
 
+.stats button {
+  background-color: #E53935;
+  border: none;
+  color: white;
+  font-weight: 500;
+  width: 140px;
+  padding: 6px;
+  border-radius: 20px;
+  outline: none;
+}
+
+#request {
+  position: absolute;
+  top: 8px;
+  margin-left: 2rem;
+  cursor: pointer;
+}
+
+/*---Notification---*/
+.noti {
+  border: 1px solid grey;
+  border-left: none;
+  border-right: none;
+}
+
+.notiMsg {
+  display: inline-block;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.notifications {
+  border: 3px solid black;
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+}
+
 /*---ADMIN STUFF---*/
 /*---Add Books---*/
 

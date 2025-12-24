@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Stack from "react-bootstrap/Stack"
 import { useNavigate } from "react-router-dom";
 import NoBooks from "../components/NoBooks";
+import Close from "../assets/Close.png"
 /*
 All books (recently viewed)
 Borrowed
@@ -58,7 +59,42 @@ const Inventory = () => {
         }
         libraryBooks();
         bookInventory();
+        document.querySelectorAll("h5").forEach(h5 => {
+            h5.style.color = "black";
+        })
+        document.getElementById(state).style.color = "#E53935";
     }, [state])
+    const cancelRequest = async (id, title) => {
+        const res = await fetch(`http://localhost:5050/bookInventory`);
+        if (!res.ok) throw new Error("Failed to get books! Try again later!");
+        let userBook = await res.json();
+        userBook = userBook.filter(u => u.studentId === localStorage.getItem("userId"));
+        let getId = userBook[0].booksIds.indexOf(id);
+        userBook[0].status[getId] = "Cancelled";
+        userBook[0].requested -= 1;
+        try {
+            await fetch(`http://localhost:5050/bookInventory/${userBook[0].id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(userBook[0])
+            });
+            let jsonData = new Object();
+            jsonData.studentId = localStorage.getItem("userId");
+            jsonData.message = `Dear Student, the library book, ${title}, has been successfully cancelled!`
+            let getDate = new Date();
+            jsonData.messageTime = getDate.toISOString();
+            jsonData.bookId = id;
+            await fetch(`http://localhost:5050/notification`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(jsonData)
+            });
+            alert("Request cancelled!");
+            getBooks(userBook[0]);
+        } catch (e) {
+            alert(e);
+        }
+    }
     displayBooks = books.booksIds?.map((id, idx) => ({
         id,
         status: books.status[idx],
@@ -82,9 +118,13 @@ const Inventory = () => {
                     onClick={() => navToBook(matchedBook.id)}
                     className="ViewedBox"
                     key={book.id}
+                    style={{ position: "relative" }}
                 >
                     <img src={matchedBook.bookImage} />
-                    <div className="d-flex flex-column text-start fs-6 ps-3">
+                    <div className="d-flex flex-column text-start fs-6 ps-3 stats">
+                        {(book.status === "Requested") && (
+                            <img id="request" onClick={(e) => { e.stopPropagation(); cancelRequest(matchedBook.id, matchedBook.title) }} src={Close} width={40} height={40} style={{ objectFit: "contain" }} />
+                        )}
                         <span>{matchedBook.title}</span>
                         <span>By {matchedBook.author}</span>
                         {matchedBook.availability
@@ -107,13 +147,13 @@ const Inventory = () => {
     return (
         <Stack className="Stacks" direction="horizontal">
             <div className="mb-auto">
-                <h5 type="button" onClick={() => { setState("All"); }} className="mt-3 d-flex justify-content-start">All</h5>
-                <h5 type="button" onClick={() => { setState("Borrowed"); }} className="mt-3 d-flex justify-content-start">Borrowed</h5>
-                <h5 type="button" onClick={() => { setState("Requested"); }} className="mt-3 d-flex justify-content-start">Requested</h5>
-                <h5 type="button" onClick={() => { setState("Collecting"); }} className="mt-3 d-flex justify-content-start">Collecting</h5>
-                <h5 type="button" onClick={() => { setState("Returned"); }} className="mt-3 d-flex justify-content-start">Returned</h5>
-                <h5 type="button" onClick={() => { setState("Overdue"); }} className="mt-3 d-flex justify-content-start">Overdue</h5>
-                <h5 type="button" onClick={() => { setState("Cancelled"); }} className="mt-3 d-flex justify-content-start">Cancelled</h5>
+                <h5 id="All" type="button" onClick={() => { setState("All"); }} className="mt-3 d-flex justify-content-start">All</h5>
+                <h5 id="Borrowed" type="button" onClick={() => { setState("Borrowed"); }} className="mt-3 d-flex justify-content-start">Borrowed</h5>
+                <h5 id="Requested" type="button" onClick={() => { setState("Requested"); }} className="mt-3 d-flex justify-content-start">Requested</h5>
+                <h5 id="Collecting" type="button" onClick={() => { setState("Collecting"); }} className="mt-3 d-flex justify-content-start">Collecting</h5>
+                <h5 id="Returned" type="button" onClick={() => { setState("Returned"); }} className="mt-3 d-flex justify-content-start">Returned</h5>
+                <h5 id="Overdue" type="button" onClick={() => { setState("Overdue"); }} className="mt-3 d-flex justify-content-start">Overdue</h5>
+                <h5 id="Cancelled" type="button" onClick={() => { setState("Cancelled"); }} className="mt-3 d-flex justify-content-start">Cancelled</h5>
                 <h5 className="mt-3 d-flex justify-content-start">Filter By:</h5>
                 <label className="d-flex align-items-center" for="available">
                     <input type="checkbox" id="available" name="available" onChange={(e) => setAvailableCheck(e.target.checked)} /> <span className=" ms-1 d-inline">Available</span>

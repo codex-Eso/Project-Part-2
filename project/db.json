@@ -55,7 +55,7 @@
       "location": "Level 6, Row 9, Bay 3",
       "availability": true,
       "identifier": 6945606555,
-      "copies": 1,
+      "copies": 2,
       "title": "Gaming History for Dummies",
       "author": "Gabriel Tan",
       "bookImage": "/bookImgs/B5.png",
@@ -68,7 +68,7 @@
       "location": "Level 8, Row 13, Bay 1",
       "availability": true,
       "identifier": 4561234707,
-      "copies": 1,
+      "copies": 2,
       "title": "Biography",
       "author": "Professor Low",
       "bookImage": "/bookImgs/B6.png",
@@ -104,77 +104,151 @@
     }
   ],
   "adminLogs": [],
-  "notification": [],
+  "notification": [
+    {
+      "id": "479c",
+      "studentId": "U4",
+      "message": "Dear Student, the library book, Gaming History for Dummies, has been successfully borrowed! Make sure to return the book back to the library after 4 weeks!",
+      "messageTime": "2025-12-24T07:32:06.058Z",
+      "bookId": "B5"
+    },
+    {
+      "id": "c0d0",
+      "studentId": "U4",
+      "message": "Dear Student, the library book, Biography, has been successfully borrowed! Make sure to return the book back to the library after 4 weeks!",
+      "messageTime": "2025-12-24T07:39:07.992Z",
+      "bookId": "B6"
+    },
+    {
+      "id": "b149",
+      "studentId": "U4",
+      "message": "Dear Student, the library book, Book of Nothing, has been successfully requested! Waiting might take a longer than a week if all available copies are taken.",
+      "messageTime": "2025-12-24T08:34:38.015Z",
+      "bookId": "B4"
+    },
+    {
+      "id": "6237",
+      "studentId": "U4",
+      "message": "Dear Student, the library book, Book of Nothing, has been successfully cancelled!",
+      "messageTime": "2025-12-24T08:34:49.465Z",
+      "bookId": "B4"
+    },
+    {
+      "id": "64ab",
+      "studentId": "U4",
+      "message": "Dear Student, the library book, Book of Nothing, has been successfully requested! Waiting might take a longer than a week if all available copies are taken.",
+      "messageTime": "2025-12-24T08:35:29.433Z",
+      "bookId": "B4"
+    },
+    {
+      "id": "b34c",
+      "studentId": "U4",
+      "message": "Dear Student, the library book, Book of Nothing, has been successfully cancelled!",
+      "messageTime": "2025-12-24T08:35:36.603Z",
+      "bookId": "B4"
+    },
+    {
+      "id": "b41e",
+      "studentId": "U3",
+      "message": "Dear Student, the library book, Gaming History for Dummies, has been successfully requested! Waiting might take a longer than a week if all available copies are taken.",
+      "messageTime": "2025-12-24T08:50:08.981Z",
+      "bookId": "B5"
+    },
+    {
+      "id": "34ca",
+      "studentId": "U3",
+      "message": "Dear Student, the library book, Gaming History for Dummies, has been successfully requested! Waiting might take a longer than a week if all available copies are taken.",
+      "messageTime": "2025-12-24T08:52:40.123Z",
+      "bookId": "B5"
+    },
+    {
+      "id": "f463",
+      "studentId": "U3",
+      "message": "Dear Student, the library book, Gaming History for Dummies, has been successfully cancelled!",
+      "messageTime": "2025-12-24T08:52:46.940Z",
+      "bookId": "B5"
+    },
+    {
+      "id": "e928",
+      "studentId": "U3",
+      "message": "Dear Student, the library book, Gaming History for Dummies, has been successfully requested! Waiting might take a longer than a week if all available copies are taken.",
+      "messageTime": "2025-12-24T08:53:02.742Z",
+      "bookId": "B5"
+    },
+    {
+      "id": "308b",
+      "studentId": "U3",
+      "message": "Dear Student, the library book, Gaming History for Dummies, has been successfully cancelled!",
+      "messageTime": "2025-12-24T08:53:07.224Z",
+      "bookId": "B5"
+    },
+    {
+      "id": "8757",
+      "studentId": "U3",
+      "message": "Dear Student, the library book, Biography, has been successfully borrowed! Make sure to return the book back to the library after 4 weeks!",
+      "messageTime": "2025-12-24T08:54:11.243Z",
+      "bookId": "B6"
+    }
+  ],
   "bookInventory": [
     {
       "id": "UB1",
       "studentId": "U2",
-      "booksIds": [
-        "B3",
-        "B5",
-        "B2",
-        "B4",
-        "B1"
-      ],
-      "status": [
-        "Requested",
-        "Borrowed",
-        "Requested",
-        "Viewed",
-        "Viewed"
-      ],
-      "dueDate": [
-        "",
-        "2026-01-18T14:20:01.763Z",
-        "",
-        "",
-        "",
-        ""
-      ],
-      "borrowed": 1,
-      "requested": 2
+      "booksIds": [],
+      "status": [],
+      "dueDate": [],
+      "borrowed": 0,
+      "requested": 0
     },
     {
       "id": "UB2",
       "studentId": "U3",
       "booksIds": [
-        "B2",
-        "B1",
+        "B6",
         "B4",
-        "B3",
-        "B6"
+        "B5"
       ],
       "status": [
-        "Requested",
+        "Borrowed",
         "Viewed",
-        "Requested",
-        "Viewed",
-        "Viewed"
+        "Cancelled"
       ],
       "dueDate": [
-        "",
-        "",
-        "",
-        "",
+        "2026-01-21T08:54:10.376Z",
         "",
         ""
       ],
-      "borrowed": 0,
-      "requested": 2
+      "borrowed": 1,
+      "requested": 0
     },
     {
       "id": "UB3",
       "studentId": "U4",
       "booksIds": [
+        "B5",
+        "B4",
+        "B6",
+        "undefined",
+        "B1",
         "B"
       ],
       "status": [
+        "Borrowed",
+        "Cancelled",
+        "Borrowed",
+        "Viewed",
+        "Viewed",
         "Viewed"
       ],
       "dueDate": [
+        "2026-01-21T07:32:05.220Z",
+        "",
+        "2026-01-21T07:39:07.275Z",
+        "",
+        "",
         ""
       ],
-      "borrowed": 0,
+      "borrowed": 2,
       "requested": 0
     }
   ],
