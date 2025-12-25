@@ -29,11 +29,15 @@ const EditBook = () => {
         const file = document.getElementById(fromImg).files[0];
         if (file.type.startsWith('image/')) {
             document.getElementById(`${fromImg}Img`).innerHTML = `${file.name}`
-            if (fromImg === "bookImg") {
-                setBookImg(URL.createObjectURL(file))
-            } else if (fromImg === "bookLoc") {
-                setBookLocImg(URL.createObjectURL(file))
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                if (fromImg === "bookImg") {
+                    setBookImg(reader.result)
+                } else if (fromImg === "bookLoc") {
+                    setBookLocImg(reader.result)
+                }
             }
+            reader.readAsDataURL(file);
             document.querySelectorAll(".images img").src = UploadImage
         } else {
             alert("Please upload an image!");

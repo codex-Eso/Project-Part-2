@@ -332,3 +332,21 @@ select {
   text-align: center;
   margin-top: 0.5rem;
 }
+
+/*---Audit Logs---*/
+
+.auditBtns button {
+  background: white;
+  border: 2px solid #d2d2d2;
+  color: #E53935;
+  font-weight: 500;
+  font-size: larger;
+  padding: 3px 18px;
+  border-radius: 20px;
+}
+
+.auditBtns button.active {
+  background-color: #E53935;
+  color: white;
+  border: none;
+}
