@@ -350,3 +350,10 @@ select {
   color: white;
   border: none;
 }
+
+.auditMsg {
+  border: 2px solid black;
+  background: white;
+  font-size: larger;
+  padding: 15px 20px;
+}

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { overflow } from "../overflow"
 import { useNavigate } from "react-router-dom";
 import UploadImage from "../assets/UploadImage.png"
+import { addAdminLog } from "../adminLog";
 const AddBook = () => {
     const navigate = useNavigate();
     useEffect(() => { overflow(true) }, []);
@@ -87,7 +88,7 @@ const AddBook = () => {
             });
             alert("Book added!");
             navigate("/admin/logs");
-            //Heavy note: HARD RELOADING (CTRL + SHIFT + R) MAKES THE IMAGE NO LONGER APPEAR
+            addAdminLog("add", isbn, title);
         } catch (e) {
             alert(e);
             return;

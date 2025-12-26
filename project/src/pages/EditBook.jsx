@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { overflow } from "../overflow"
 import { useEffect, useState } from "react";
 import UploadImage from "../assets/UploadImage.png"
+import { addAdminLog } from "../adminLog";
 
 const EditBook = () => {
     const { id } = useParams();
@@ -95,7 +96,7 @@ const EditBook = () => {
             });
             alert("Book edited!");
             navigate("/admin/logs");
-            //Heavy note: HARD RELOADING (CTRL + SHIFT + R) MAKES THE IMAGE NO LONGER APPEAR
+            addAdminLog("edit", isbn, title);
         } catch (e) {
             alert(e);
             return;

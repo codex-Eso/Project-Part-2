@@ -6,6 +6,7 @@ import Carousel from "react-bootstrap/Carousel";
 import { useNavigate } from "react-router-dom";
 import { getRole } from "../checkLogin";
 import { overflow } from "../overflow";
+import { addAdminLog } from "../adminLog";
 
 const BookInfo = () => {
     const { id } = useParams();
@@ -196,11 +197,14 @@ const BookInfo = () => {
                 if (confirmDeletion.toLowerCase() === "yes") {
                     const deletion = async () => {
                         try {
+                            let bookISBN = book.identifier
+                            let bookName = book.title
                             await fetch(`http://localhost:5050/libraryData/${id}`, {
                                 method: "DELETE"
                             })
                             alert("Book deleted!")
                             navigate(-1);
+                            addAdminLog("delete", bookISBN, bookName);
                         } catch (e) {
                             alert(e);
                         }

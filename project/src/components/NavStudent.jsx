@@ -75,7 +75,11 @@ const NavStudent = () => {
                     <Modal.Title>Notifications</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {notifcationDisplay}
+                    {notification.length > 0 ? notifcationDisplay : <>
+                        <div className='text-center'>
+                            No New Notifications!
+                        </div>
+                    </>}
                 </Modal.Body>
                 <Modal.Footer className='justify-content-center'>
                     <text type='button' className='text-decoration-underline' onClick={() => { checkToShow(false); navigate("/student/notification"); }}>
