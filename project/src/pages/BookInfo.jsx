@@ -77,7 +77,7 @@ const BookInfo = () => {
                     });
                 }
             } catch (e) {
-                alert(e);
+                console.log(e);
             }
         }
         getUserBooks();
@@ -207,7 +207,7 @@ const BookInfo = () => {
                             navigate(-1);
                             addAdminLog("delete", bookISBN, bookName);
                         } catch (e) {
-                            alert(e);
+                            console.log(e);
                         }
                     }
                     deletion();

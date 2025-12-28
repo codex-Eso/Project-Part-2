@@ -45,7 +45,7 @@ const Inventory = () => {
                 data = data.filter(u => u.studentId === localStorage.getItem("userId"));
                 getBooks(data[0]);
             } catch (e) {
-                alert(e);
+                console.log(e);
             }
         }
         const libraryBooks = async () => {
@@ -55,7 +55,7 @@ const Inventory = () => {
                 let data = await res.json();
                 getAllBooks(data);
             } catch (e) {
-                alert(e);
+                console.log(e);
             }
         }
         libraryBooks();
@@ -64,7 +64,7 @@ const Inventory = () => {
             h5.style.color = "black";
         })
         document.getElementById(state).style.color = "#E53935";
-    }, [state])
+    }, [state, books])
     const cancelRequest = async (id, title) => {
         const res = await fetch(`http://localhost:5050/bookInventory`);
         if (!res.ok) throw new Error("Failed to get books! Try again later!");
@@ -102,7 +102,38 @@ const Inventory = () => {
                 method: "DELETE"
             })
         } catch (e) {
-            alert(e);
+            console.log(e);
+        }
+    }
+    const renew = async (id, title) => {
+        try {
+            //due to complexity, I will not be adding the logic for letting 1 renew per book only
+            let userBook = await fetch(`http://localhost:5050/bookInventory`);
+            userBook = await userBook.json();
+            userBook = userBook.find(b => b.studentId === localStorage.getItem("userId"));
+            let i = userBook.booksIds.indexOf(id);
+            let getDate = new Date(userBook.dueDate[i]);
+            getDate.setDate(getDate.getDate() + 3);
+            userBook.dueDate[i] = getDate;
+            await fetch(`http://localhost:5050/bookInventory/${userBook.id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(userBook)
+            })
+            alert("Renewed successfully!");
+            let jsonData = new Object();
+            jsonData.studentId = localStorage.getItem("userId");
+            jsonData.message = `Dear Student, the library book, ${title}, has been successfully renewed! Enjoy 3 more days with the book!`
+            let getTdyDate = new Date();
+            jsonData.messageTime = getTdyDate.toISOString();
+            jsonData.bookId = id;
+            await fetch(`http://localhost:5050/notification`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(jsonData)
+            });
+        } catch (e) {
+            console.log(e)
         }
     }
     displayBooks = books.booksIds?.map((id, idx) => ({
@@ -142,7 +173,10 @@ const Inventory = () => {
                             : <span className="text-danger">Unavailable</span>}
                         <span>Status: {book.status}</span>
                         {(book.status === "Borrowed") && (
-                            <span>Return By: {formatDueDate(book.dueDate)}</span>
+                            <>
+                                <span>Return By: {formatDueDate(book.dueDate)}</span>
+                                <button onClick={(e) => { renew(book.id, matchedBook.title); e.stopPropagation(); }} className="mt-1">Renew</button>
+                            </>
                         )}
                         {(book.status === "Collecting") && (
                             <span>Collect By: {formatDueDate(book.dueDate)}</span>

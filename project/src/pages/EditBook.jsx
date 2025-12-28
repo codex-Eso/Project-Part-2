@@ -98,7 +98,7 @@ const EditBook = () => {
             navigate("/admin/logs");
             addAdminLog("edit", isbn, title);
         } catch (e) {
-            alert(e);
+            console.log(e);
             return;
         }
     }

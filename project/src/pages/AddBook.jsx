@@ -65,7 +65,7 @@ const AddBook = () => {
             const bookIds = data.map(book => book.id);
             id = `B${bookIds.length + 1}`
         } catch (e) {
-            alert(e);
+            console.log(e);
             return;
         }
         let jsonData = new Object();
@@ -90,7 +90,7 @@ const AddBook = () => {
             navigate("/admin/logs");
             addAdminLog("add", isbn, title);
         } catch (e) {
-            alert(e);
+            console.log(e);
             return;
         }
     }

@@ -19,7 +19,7 @@ const Authentication = () => {
                 setUser(data);
             } catch (e) {
                 if (e.startsWith("TypeError")) return;
-                alert(e);
+                console.log(e);
             }
         }
         checkLogin();

@@ -21,7 +21,7 @@ const StudentHome = () => {
                 data = data.filter(u => u.studentId === localStorage.getItem("userId"));
                 setBooks(data[0]);
             } catch (e) {
-                alert(e);
+                console.log(e);
             }
         }
         const getAllBooks = async () => {
@@ -31,7 +31,7 @@ const StudentHome = () => {
                 let data = await res.json();
                 getBooks(data);
             } catch (e) {
-                alert(e);
+                console.log(e);
             }
         }
         getViewedBooks();

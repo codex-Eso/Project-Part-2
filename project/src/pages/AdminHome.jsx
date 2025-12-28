@@ -19,7 +19,7 @@ const AdminHome = () => {
                 let data = await res.json();
                 setBooks(data[0]);
             } catch (e) {
-                alert(e);
+                console.log(e);
             }
         }
         const getAllBooks = async () => {
@@ -29,7 +29,7 @@ const AdminHome = () => {
                 let data = await res.json();
                 getBooks(data);
             } catch (e) {
-                alert(e);
+                console.log(e);
             }
         }
         getViewedBooks();
