@@ -314,6 +314,29 @@ select {
   border-radius: 10px;
 }
 
+/*---Other Actions---*/
+
+.otherContainer {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 20px;
+  border: 2px solid #d2d2d2;
+  margin-top: 5rem;
+}
+
+.otherContainer button {
+  color: white;
+  border: none;
+  background: #E53935;
+  font-weight: 500;
+  font-size: larger;
+  padding: 3px 18px;
+  border-radius: 20px;
+  outline: none;
+}
+
 /*---ADMIN STUFF---*/
 /*---Add Books---*/
 

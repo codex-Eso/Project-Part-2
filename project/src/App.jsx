@@ -14,6 +14,7 @@ import AdminHome from './pages/AdminHome'
 import BookInfo from './pages/BookInfo'
 import './App.css'
 import EditBook from './pages/EditBook'
+import Others from './pages/Others'
 
 function App() {
   const [role, getRole] = useState(localStorage.getItem("loginRole"));
@@ -43,6 +44,7 @@ function App() {
             <Route path="inventory" element={<Inventory />} />
             <Route path="notification" element={<Notification />} />
             <Route path="book/:id" element={<BookInfo />} />
+            <Route path='others' element={<Others />} />
           </Route>
           <Route path="/admin" element={<Admin />}>
             <Route index element={<AdminHome />} />

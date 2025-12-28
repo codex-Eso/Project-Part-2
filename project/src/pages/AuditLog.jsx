@@ -172,6 +172,8 @@ const AuditLog = () => {
                     {(log.actionName === "cancelled" && log.userId !== undefined) ? <text>- The user has cancelled request for {log.bookName} (ISBN: {log.bookISBN})!</text> : null}
                     {(log.actionName === "cancelled" && log.userId === undefined) ? <text>- Successfully cancelled request for {log.bookName} (ISBN: {log.bookISBN})!</text> : null}
                     {(log.actionName === "accepted") ? <text>- Successfully accepted request for {log.bookName} (ISBN: {log.bookISBN})!</text> : null}
+                    {(log.actionName === "overdue") ? <text>- Notice: {log.bookName} (ISBN: {log.bookISBN}) has not been returned by the user of admin number, {log.adminNo}.</text> : null}
+                    {(log.actionName === "returned") ? <text>- {log.bookName} (ISBN: {log.bookISBN}) has been returned to the library!</text> : null}
                 </div>
                 {(!log.readLog && log.actionName !== "requested") ? <img src={Read} type="button" className="ms-auto" width={40} onClick={() => updateLog(log.id)} /> : null}
                 {log.actionName === "requested" ? <Stack gap={4} className="ms-auto" direction="horizontal"><img onClick={() => { accepted(log.bookISBN, log.bookName, log.userId); }} src={Accept} width={30} /><img onClick={() => { cancelled(log.bookISBN, log.bookName, log.userId); }} src={Cancel} width={30} /></Stack> : null}
