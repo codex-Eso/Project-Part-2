@@ -1,4 +1,3 @@
-**/db.json
 # Logs
 logs
 *.log
@@ -12,6 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
+db.json
 
 # Editor directories and files
 .vscode/*

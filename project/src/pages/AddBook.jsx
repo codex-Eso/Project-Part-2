@@ -33,7 +33,7 @@ const AddBook = () => {
         const bookImage = document.getElementById("bookImg").value
         const publisher = document.getElementById("publisher").value
         const isbn = Number(document.getElementById("identifier").value)
-        const availability = Boolean(document.getElementById("availability").value)
+        const availability = document.getElementById("availability").value === true;
         const copies = Number(document.getElementById("copies").value)
         const location = document.getElementById("location").value
         const bookLoc = document.getElementById("bookLoc").value

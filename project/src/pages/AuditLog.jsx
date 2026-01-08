@@ -80,7 +80,10 @@ const AuditLog = () => {
             console.log(e)
         }
     }
-    const accepted = async (isbn, title, uId) => {
+    //both accepted and cancelled need to add the adminLog id from allLogs
+    //then when doing adminNoti, change bookISBN to id of the adminLog
+    //thats why it was so funky when accepting/cancelling the requests
+    const accepted = async (isbn, title, uId, logId) => {
         try {
             let notification = new Object();
             notification.studentId = uId;
@@ -115,7 +118,7 @@ const AuditLog = () => {
             addAdminLog("accepted", isbn, title);
             let adminNoti = await fetch(`http://localhost:5050/adminLogs`);
             adminNoti = await adminNoti.json();
-            adminNoti = adminNoti.slice().reverse().find((n) => n.bookISBN == isbn);
+            adminNoti = adminNoti.slice().reverse().find((n) => n.id == logId);
             await fetch(`http://localhost:5050/adminLogs/${adminNoti.id}`, {
                 method: "DELETE"
             })
@@ -123,7 +126,7 @@ const AuditLog = () => {
             console.log(e)
         }
     }
-    const cancelled = async (isbn, title, uId) => {
+    const cancelled = async (isbn, title, uId, logId) => {
         try {
             let notification = new Object();
             notification.studentId = uId;
@@ -153,7 +156,7 @@ const AuditLog = () => {
             addAdminLog("cancelled", isbn, title);
             let adminNoti = await fetch(`http://localhost:5050/adminLogs`);
             adminNoti = await adminNoti.json();
-            adminNoti = adminNoti.slice().reverse().find(n => n.bookISBN == isbn);
+            adminNoti = adminNoti.slice().reverse().find(n => n.id == logId);
             await fetch(`http://localhost:5050/adminLogs/${adminNoti.id}`, {
                 method: "DELETE"
             })
@@ -176,7 +179,8 @@ const AuditLog = () => {
                     {(log.actionName === "returned") ? <text>- {log.bookName} (ISBN: {log.bookISBN}) has been returned to the library!</text> : null}
                 </div>
                 {(!log.readLog && log.actionName !== "requested") ? <img src={Read} type="button" className="ms-auto" width={40} onClick={() => updateLog(log.id)} /> : null}
-                {log.actionName === "requested" ? <Stack gap={4} className="ms-auto" direction="horizontal"><img type="button" onClick={() => { accepted(log.bookISBN, log.bookName, log.userId); }} src={Accept} width={30} /><img type="button" onClick={() => { cancelled(log.bookISBN, log.bookName, log.userId); }} src={Cancel} width={30} /></Stack> : null}
+                {/*From here, add new parameter of log.id in accept + cancel functions*/}
+                {log.actionName === "requested" ? <Stack gap={4} className="ms-auto" direction="horizontal"><img type="button" onClick={() => { accepted(log.bookISBN, log.bookName, log.userId, log.id); }} src={Accept} width={30} /><img type="button" onClick={() => { cancelled(log.bookISBN, log.bookName, log.userId, log.id); }} src={Cancel} width={30} /></Stack> : null}
             </div>
         )
     })
