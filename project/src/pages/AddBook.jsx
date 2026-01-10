@@ -59,6 +59,7 @@ const AddBook = () => {
         }
         let id;
         try {
+            //GET libraryData
             const res = await fetch(`http://localhost:5050/libraryData`);
             if (!res.ok) throw new Error("Failed to get books! Try again later!");
             let data = await res.json();
@@ -81,6 +82,7 @@ const AddBook = () => {
         jsonData.imgLocation = bookLocImg;
         jsonData.level = level;
         try {
+            //POST libraryData
             await fetch(`http://localhost:5050/libraryData`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },

@@ -14,6 +14,7 @@ const EditBook = () => {
     useEffect(() => {
         const getBookInfo = async () => {
             try {
+                //GET libraryData
                 const res = await fetch(`http://localhost:5050/libraryData/${id}`);
                 if (!res.ok) throw new Error("Failed to get book! Try again later!");
                 let data = await res.json();
@@ -89,6 +90,7 @@ const EditBook = () => {
         }
         jsonData.level = level;
         try {
+            //PATCH libraryData
             await fetch(`http://localhost:5050/libraryData/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },

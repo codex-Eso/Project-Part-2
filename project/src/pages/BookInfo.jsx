@@ -20,6 +20,7 @@ const BookInfo = () => {
     useEffect(() => {
         const getBookInfo = async () => {
             try {
+                //GET libraryData
                 const res = await fetch(`http://localhost:5050/libraryData/${id}`);
                 if (!res.ok) throw new Error("Failed to get book! Try again later!");
                 let data = await res.json();
@@ -34,6 +35,7 @@ const BookInfo = () => {
         const getUserBooks = async () => {
             try {
                 if (getRole() === "admin") {
+                    //GET adminBooks
                     const res = await fetch(`http://localhost:5050/adminBooks`);
                     if (!res.ok) throw new Error("Failed to get books! Try again later!");
                     let data = await res.json();
@@ -44,12 +46,14 @@ const BookInfo = () => {
                     } else {
                         data[0].bookIds.unshift(id);
                     }
+                    //PATCH adminBooks
                     await fetch(`http://localhost:5050/adminBooks/AB1`, {
                         method: "PATCH",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(data[0])
                     });
                 } else if (getRole() === "student") {
+                    //GET bookInventory
                     const res = await fetch(`http://localhost:5050/bookInventory`);
                     if (!res.ok) throw new Error("Failed to get books! Try again later!");
                     let data = await res.json();
@@ -70,6 +74,7 @@ const BookInfo = () => {
                     setBookState(data[0].status[0]);
                     setBorrowedCount(data[0].borrowed);
                     setRequestedCount(data[0].requested);
+                    //PATCH bookInventory
                     await fetch(`http://localhost:5050/bookInventory/${data[0].id}`, {
                         method: "PATCH",
                         headers: { "Content-Type": "application/json" },
@@ -106,6 +111,7 @@ const BookInfo = () => {
                             let dueDate = new Date(tdyDate);
                             dueDate.setDate(tdyDate.getDate() + 28);
                             dueDate = dueDate.toISOString();
+                            //GET bookInventory
                             const res = await fetch(`http://localhost:5050/bookInventory`);
                             if (!res.ok) throw new Error("Failed to get books! Try again later!");
                             let userBook = await res.json();
@@ -114,6 +120,7 @@ const BookInfo = () => {
                             userBook[0].status[getId] = "Borrowed";
                             userBook[0].dueDate[getId] = dueDate;
                             userBook[0].borrowed += 1;
+                            //PATCH bookInventory
                             await fetch(`http://localhost:5050/bookInventory/${userBook[0].id}`, {
                                 method: "PATCH",
                                 headers: { "Content-Type": "application/json" },
@@ -122,6 +129,7 @@ const BookInfo = () => {
                             const updatedBook = { ...book };
                             updatedBook.copies -= 1;
                             if (updatedBook.copies === 0) updatedBook.availability = false;
+                            //PATCH libraryData
                             await fetch(`http://localhost:5050/libraryData/${id}`, {
                                 method: "PATCH",
                                 headers: { "Content-Type": "application/json" },
@@ -134,6 +142,7 @@ const BookInfo = () => {
                             let getDate = new Date();
                             jsonData.messageTime = getDate.toISOString();
                             jsonData.bookId = id;
+                            //POST notification
                             await fetch(`http://localhost:5050/notification`, {
                                 method: "POST",
                                 headers: { "Content-Type": "application/json" },
@@ -152,6 +161,7 @@ const BookInfo = () => {
                         return;
                     }
                     const bookRequested = async () => {
+                        //GET bookInventory
                         const res = await fetch(`http://localhost:5050/bookInventory`);
                         if (!res.ok) throw new Error("Failed to get books! Try again later!");
                         let userBook = await res.json();
@@ -159,6 +169,7 @@ const BookInfo = () => {
                         let getId = userBook[0].booksIds.indexOf(id);
                         userBook[0].status[getId] = "Requested";
                         userBook[0].requested += 1;
+                        //PATCH bookInventory
                         await fetch(`http://localhost:5050/bookInventory/${userBook[0].id}`, {
                             method: "PATCH",
                             headers: { "Content-Type": "application/json" },
@@ -170,6 +181,7 @@ const BookInfo = () => {
                         let getDate = new Date();
                         jsonData.messageTime = getDate.toISOString();
                         jsonData.bookId = id;
+                        //POST notification
                         await fetch(`http://localhost:5050/notification`, {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
@@ -200,6 +212,7 @@ const BookInfo = () => {
                         try {
                             let bookISBN = book.identifier
                             let bookName = book.title
+                            //DELETE libraryData
                             await fetch(`http://localhost:5050/libraryData/${id}`, {
                                 method: "DELETE"
                             })

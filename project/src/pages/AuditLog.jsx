@@ -23,8 +23,10 @@ const AuditLog = () => {
     const [allLogs, getAllLogs] = useState([]);
     useEffect(() => {
         const getLogs = async (state) => {
+            //simplify this to call adminLogs once???
             if (state === "All") {
                 try {
+                    //GET adminLogs
                     const res = await fetch(`http://localhost:5050/adminLogs`)
                     if (!res.ok) throw new Error("Failed to get admin logs! Try again later!");
                     let data = await res.json();
@@ -34,6 +36,7 @@ const AuditLog = () => {
                 }
             } else if (state === "Unread") {
                 try {
+                    //GET adminLogs
                     const res = await fetch(`http://localhost:5050/adminLogs`)
                     if (!res.ok) throw new Error("Failed to get admin logs! Try again later!");
                     let data = await res.json();
@@ -44,6 +47,7 @@ const AuditLog = () => {
                 }
             } else if (state == "Read") {
                 try {
+                    //GET adminLogs
                     const res = await fetch(`http://localhost:5050/adminLogs`)
                     if (!res.ok) throw new Error("Failed to get admin logs! Try again later!");
                     let data = await res.json();
@@ -71,6 +75,7 @@ const AuditLog = () => {
         try {
             let log = new Object();
             log.readLog = true;
+            //PATCH adminLogs
             await fetch(`http://localhost:5050/adminLogs/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
@@ -89,16 +94,19 @@ const AuditLog = () => {
             notification.studentId = uId;
             notification.message = `Dear Student, the library book, ${title}, is now ready for collection! Please collect the book within 3 days.`
             notification.messageTime = (new Date()).toISOString();
+            //GET libraryData
             let books = await fetch("http://localhost:5050/libraryData");
             books = await books.json();
             books = books.filter((b) => b.identifier == isbn);
             const bookId = books[0].id
             notification.bookId = bookId
+            //GET notification
             await fetch(`http://localhost:5050/notification`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(notification)
             });
+            //GET bookInventory
             let updatedBook = await fetch("http://localhost:5050/bookInventory");
             updatedBook = await updatedBook.json();
             updatedBook = updatedBook.find((b) => b.studentId == uId);
@@ -110,15 +118,18 @@ const AuditLog = () => {
             dueDate = dueDate.toISOString();
             updatedBook.dueDate[bookIndex] = dueDate;
             updatedBook.requested -= 1;
+            //PATCH bookInventory
             await fetch(`http://localhost:5050/bookInventory/${updatedBook.id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updatedBook)
             });
             addAdminLog("accepted", isbn, title);
+            //GET adminLogs
             let adminNoti = await fetch(`http://localhost:5050/adminLogs`);
             adminNoti = await adminNoti.json();
             adminNoti = adminNoti.slice().reverse().find((n) => n.id == logId);
+            //DELETE adminLogs
             await fetch(`http://localhost:5050/adminLogs/${adminNoti.id}`, {
                 method: "DELETE"
             })
@@ -132,31 +143,37 @@ const AuditLog = () => {
             notification.studentId = uId;
             notification.message = `Dear Student, the library book, ${title}, has been rejected for collection by the admin.`
             notification.messageTime = (new Date()).toISOString();
+            //GET libraryData
             let books = await fetch("http://localhost:5050/libraryData");
             books = await books.json();
             books = books.filter((b) => b.identifier == isbn);
             const bookId = books[0].id
             notification.bookId = bookId
+            //POST notification
             await fetch(`http://localhost:5050/notification`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(notification)
             });
+            //GET bookInventory
             let updatedBook = await fetch("http://localhost:5050/bookInventory");
             updatedBook = await updatedBook.json();
             updatedBook = updatedBook.find((b) => b.studentId == uId);
             let bookIndex = updatedBook.booksIds.indexOf(bookId);
             updatedBook.status[bookIndex] = "Cancelled";
             updatedBook.requested -= 1;
+            //PATCH bookInventory
             await fetch(`http://localhost:5050/bookInventory/${updatedBook.id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updatedBook)
             });
             addAdminLog("cancelled", isbn, title);
+            //GET adminLogs
             let adminNoti = await fetch(`http://localhost:5050/adminLogs`);
             adminNoti = await adminNoti.json();
             adminNoti = adminNoti.slice().reverse().find(n => n.id == logId);
+            //DELETE adminLogs
             await fetch(`http://localhost:5050/adminLogs/${adminNoti.id}`, {
                 method: "DELETE"
             })

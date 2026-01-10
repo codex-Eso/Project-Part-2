@@ -4,6 +4,7 @@ const Others = () => {
     //note: case sensitive
     const overdue = async () => {
         const bookId = prompt("Enter the book id to be overdued:\n");
+        //GET bookInventory
         let userBook = await fetch("http://localhost:5050/bookInventory");
         userBook = await userBook.json();
         userBook = userBook.find(b => (b.studentId === localStorage.getItem("userId")));
@@ -13,12 +14,14 @@ const Others = () => {
             if (userBook.status[i] === "Borrowed") {
                 userBook.status[i] = "Overdue";
                 try {
+                    //PATCH bookInventory
                     await fetch(`http://localhost:5050/bookInventory/${userBook.id}`, {
                         method: "PATCH",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(userBook)
                     })
                     alert("Overdue scenario triggered!");
+                    //GET libraryData
                     let getBook = await fetch(`http://localhost:5050/libraryData/${bookId}`);
                     getBook = await getBook.json();
                     let notification = new Object();
@@ -26,6 +29,7 @@ const Others = () => {
                     notification.message = `Dear Student, the library book, ${getBook.title}, is now officially overdued. Please return the book immediately back to the library to prevent more heavier overdue fees.`
                     notification.messageTime = (new Date()).toISOString();
                     notification.bookId = bookId;
+                    //POST notification
                     await fetch(`http://localhost:5050/notification`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -37,9 +41,11 @@ const Others = () => {
                     adminNoti.bookName = getBook.title
                     adminNoti.actionName = "overdue"
                     adminNoti.readLog = false
+                    //GET users
                     let user = await fetch(`http://localhost:5050/users/${localStorage.getItem("userId")}`);
                     user = await user.json();
                     adminNoti.adminNo = user.username;
+                    //POST adminLogs
                     await fetch(`http://localhost:5050/adminLogs`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -59,6 +65,7 @@ const Others = () => {
     }
     const returned = async () => {
         const bookId = prompt("Enter the book id to be returned:\n");
+        //GET bookInventory
         let userBook = await fetch("http://localhost:5050/bookInventory");
         userBook = await userBook.json();
         userBook = userBook.find(b => (b.studentId === localStorage.getItem("userId")));
@@ -70,18 +77,21 @@ const Others = () => {
                 userBook.borrowed -= 1;
                 userBook.dueDate[i] = "";
                 try {
+                    //PATCH bookInventory
                     await fetch(`http://localhost:5050/bookInventory/${userBook.id}`, {
                         method: "PATCH",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(userBook)
                     })
                     alert("Returned scenario triggered!");
+                    //GET libraryData
                     let getBook = await fetch(`http://localhost:5050/libraryData/${bookId}`);
                     getBook = await getBook.json();
                     if (!getBook.availability) {
                         getBook.availability = true;
                     }
                     getBook.copies += 1;
+                    //PATCH libraryData
                     await fetch(`http://localhost:5050/libraryData/${bookId}`, {
                         method: "PATCH",
                         headers: { "Content-Type": "application/json" },
@@ -92,6 +102,7 @@ const Others = () => {
                     notification.message = `Dear Student, the library book, ${getBook.title}, has now been returned!`
                     notification.messageTime = (new Date()).toISOString();
                     notification.bookId = bookId;
+                    //POST notification
                     await fetch(`http://localhost:5050/notification`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -103,6 +114,7 @@ const Others = () => {
                     adminNoti.bookName = getBook.title
                     adminNoti.actionName = "returned"
                     adminNoti.readLog = false
+                    //POST adminLogs
                     await fetch(`http://localhost:5050/adminLogs`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },

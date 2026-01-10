@@ -8,11 +8,18 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "backend": "npx json-server --watch db.json --port 5050"
+    "backend": "npx json-server --watch db.json --port 5050",
+    "dev": "nodemon server.js"
   },
   "dependencies": {
     "bootstrap": "^5.3.8",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
     "json-server": "^1.0.0-beta.3",
+    "mongodb": "^6.21.0",
+    "mongoose": "^8.19.2",
+    "nodemon": "^3.1.11",
     "react": "^19.2.0",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.2.0",
@@ -31,7 +38,7 @@
     "vite": "^7.2.4"
   },
   "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
-  "main": "eslint.config.js",
+  "main": "server.js",
   "keywords": [],
   "author": "",
   "license": "ISC"
